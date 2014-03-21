@@ -43,7 +43,7 @@ E2.p.prototype.update_state = function()
 	var url = this.url;
 	
 	if(url[url.length-1] != '/')
-		url += '/';
+		url += '/_fd/';
 		
 	url += 'reset';
 	
@@ -55,7 +55,7 @@ E2.p.prototype.update_state = function()
 		type: 'GET',
 		success: function(data)
 		{
-			msg('Framdumping reset to frame 0');
+			msg('Framedumping reset to frame 0');
 		},
 		error: function()
 		{

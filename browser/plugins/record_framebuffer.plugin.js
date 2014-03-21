@@ -1,5 +1,7 @@
 E2.p = E2.plugins["record_framebuffer"] = function(core, node)
 {
+	var self = this;
+
 	this.desc = 'Grab the current framebuffer and transmit frame size and RGB data to a specified recording server.';
 	
 	this.input_slots = [ 
@@ -10,6 +12,16 @@ E2.p = E2.plugins["record_framebuffer"] = function(core, node)
 	
 	this.output_slots = [];
 	this.gl = core.renderer.context;
+
+	this._client = new WebSocket('ws://localhost:8000/_fd');
+	this._client.binaryType = "arraybuffer";
+	this._client.onmessage = function() {
+		console.log('onmessage')
+	}
+	this._client.onclose = function()
+	{
+		self._client = null;
+	};
 };
 
 E2.p.prototype.reset = function()
@@ -54,23 +66,6 @@ E2.p.prototype.update_state = function()
 	gl.readPixels(0, 0, w, h, gl.RGBA, gl.UNSIGNED_BYTE, img_data);
 	gl.bindFramebuffer(gl.FRAMEBUFFER, null);
 
-	var data = new FormData();
-	data.append('img_data', new Blob([img_data], { type: 'image/png' }));
-
-	$.ajax({
-		url: this.url + '?width='+w+'&'+'height='+h,
-		data: data,
-		async: false,
-		contentType: false,
-		processData: false,
-		type: 'POST',
-		success: function(data)
-		{
-			msg('Successfully transmitted frame to ' + this.url);
-		},
-		error: function()
-		{
-			msg('ERROR: Could not transmit frame to ' + this.url);
-		}
-	});
+console.log('send frame', this._client.bufferedAmount, this._client.readyState)
+	this._client.send(img_data.buffer);
 };

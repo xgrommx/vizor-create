@@ -1,8 +1,10 @@
 "use strict";
 
+var http = require('http')
 var express = require('express')
 var argv = require('minimist')(process.argv.slice(2));
 var fs = require('fs')
+var FrameDumpServer = require('./lib/framedump-server').FrameDumpServer;
 
 var config = require('./config.json')
 
@@ -47,9 +49,9 @@ function downloadHandler(req, res) {
 	})
 }
 
-var app = express()
+var expressApp = express()
 
-	.use(express.logger(':remote-addr :method :url :status :res[content-length] - :response-time ms'))
+	// .use(express.logger(':remote-addr :method :url :status :res[content-length] - :response-time ms'))
 
 	.use(function(req, res, next) {
 		if (req.url.indexOf('?_') > -1)
@@ -93,4 +95,10 @@ var app = express()
 
 	.use(express.errorHandler())
 
-	.listen(listenPort, listenHost)
+var server = http.createServer(expressApp)
+
+new FrameDumpServer()
+	.output('./output')
+	.listen(server, expressApp, '/_fd');
+
+server.listen(listenPort, listenHost)

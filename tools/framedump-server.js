@@ -41,10 +41,10 @@ var app = express()
 				filterType: -1
 			});
 
-			file.on('data', function(png) { return function(d) {
+			file.on('data', function(png, offset) { return function(d) {
 				d.copy(png.data, offset)
 				offset += d.length
-			}}(png));
+			}}(png, offset));
 
 			file.on('end', function(png) { return function() {
 				console.log('Frame', framePngName)
