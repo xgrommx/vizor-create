@@ -189,3 +189,4 @@ ContextMenu.prototype.hide = function()
 };
 
 
+exports.ContextMenu = ContextMenu;

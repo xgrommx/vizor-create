@@ -1,3 +1,5 @@
+var msg = require('./util').msg;
+var load_script = require('./util').load_script;
 var PluginGroup = require('./plugin-group').PluginGroup;
 var ContextMenu = require('./context-menu').ContextMenu;
 

@@ -1,7 +1,7 @@
 
+var Camera = require('./camera').Camera;
 var Color = require('./color').Color;
 var Light = require('./light').Light;
-var Material = require('./material').Material;
 var TextureSampler = require('./texture-sampler').TextureSampler;
 var Texture = require('./texture').Texture;
 var TextureCache = require('./texture-cache').TextureCache;
@@ -80,6 +80,7 @@ function Renderer(canvas_id, core)
 	document.addEventListener('mozfullscreenchange', this.on_fullscreen_change(this));
 	
 	// Constants, to cut down on wasted objects in slot definitions.
+	var Material = require('./material').Material;
 	this.camera_screenspace = new Camera(this.context);
 	this.light_default = new Light();
 	this.material_default = new Material();

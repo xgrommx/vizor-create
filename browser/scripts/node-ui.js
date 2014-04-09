@@ -1,3 +1,6 @@
+var make = require('./util').make;
+var make_draggable = require('./draggable').make_draggable;
+
 function NodeUI(parent_node, x, y) {
 	this.parent_node = parent_node;
 	this.x = x;
@@ -141,3 +144,4 @@ NodeUI.render_slots = function(parent_node, nid, col, slots, type)
 		NodeUI.create_slot(parent_node, nid, col, slots[i], type);
 };
 
+exports.NodeUI = NodeUI;

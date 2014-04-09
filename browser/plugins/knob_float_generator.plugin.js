@@ -1,3 +1,5 @@
+var make = require('../scripts/util').make;
+
 E2.p = E2.plugins["knob_float_generator"] = function(core, node)
 {
 	this.desc = 'Emits a user controllable float value between 0 and 1.';

@@ -48,6 +48,7 @@ Node.prototype.set_plugin = function(plugin)
 	
 Node.prototype.create_ui = function()
 {
+	var NodeUI = require('./node-ui').NodeUI;
 	this.ui = new NodeUI(this, this.x, this.y);
 };
 
@@ -497,6 +498,7 @@ Node.prototype.deserialise = function(guid, d)
 	
 	if(this.plugin.e2_is_graph)
 	{
+		var Graph = require('./graph').Graph;
 		this.plugin.graph = new Graph(E2.app.player.core, null, null);
 		this.plugin.graph.plugin = this.plugin;
 		this.plugin.graph.deserialise(d.graph);
@@ -549,6 +551,7 @@ Node.prototype.deserialise = function(guid, d)
 
 Node.prototype.patch_up = function(graphs)
 {
+	var Graph = require('./graph').Graph;
 	this.parent_graph = Graph.resolve_graph(graphs, this.parent_graph);
 
 	if(this.plugin.e2_is_graph)
@@ -653,3 +656,5 @@ LinkedSlotGroup.prototype.infer_dt = function()
 	
 	return null;
 };
+
+exports.Node = Node;

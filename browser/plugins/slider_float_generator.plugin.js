@@ -1,3 +1,6 @@
+var make = require('../scripts/util').make;
+var ExpandableTextfield = require('../scripts/expandable-text-field').ExpandableTextfield;
+
 E2.p = E2.plugins["slider_float_generator"] = function(core, node)
 {
 	this.desc = 'Emits a user controllable float value between two specified values.';

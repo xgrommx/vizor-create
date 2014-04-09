@@ -1,3 +1,58 @@
+var CollapsibleSelectControl = require('./collapsible-select-control').CollapsibleSelectControl;
+var FileSelectControl = require('./file-select-control').FileSelectControl;
+var load_location_hash = require('./util').load_location_hash;
+
+var URL_GRAPHS = '/data/graphs/'
+
+function PresetManager(base_url)
+{
+	$.ajax({
+		url: base_url + '/presets.json',
+		cache: true
+	}).done(function(data)
+	{
+		var presets = Object.keys(data).map(function(cat)
+		{
+			return {
+				title: cat,
+				items: Object.keys(data[cat]).map(function(preset)
+				{
+					return {
+						title: preset,
+						path: data[cat][preset]
+					}
+				})
+			}
+		});
+
+		var presets_list = new CollapsibleSelectControl()
+			.data(presets)
+			.render(E2.dom.presets_list)
+			.onOpen(function(path) {
+				var url = base_url + '/' + path + '.json';
+
+				msg('Loading snippet from: ' + url);
+
+				$.get(url)
+				.done(function(data)
+				{
+					E2.app.fillCopyBuffer(data.root.nodes, data.root.conns, 0, 0);
+					E2.app.onPaste({ target: { id: 'notpersist' }});
+				})
+				.fail(function(_j, _textStatus, _errorThrown)
+				{
+		  			msg('ERROR: Failed to load the selected preset.');
+				})
+			})
+
+		if(!window.location.hash)
+			presets_list.focus()
+	})
+	.fail(function() {
+		msg('PresetsMgr: No presets found.');
+	})
+}
+
 function Application() {
 	var self = this;
 	var canvas_parent = $("#canvas_parent");
@@ -1405,7 +1460,7 @@ function Application() {
 			.createForUrl(URL_GRAPHS, null, 'Open', function(file)
 			{
 				window.location.hash = '#' + URL_GRAPHS + file;
-				load_location_hash();
+				load_location_hash(URL_GRAPHS);
 			})
 	};
 
@@ -1618,3 +1673,4 @@ function Application() {
 	this.onHideTooltip();
 }
 
+exports.Application = Application;

@@ -126,3 +126,16 @@ exports.load_script = function load_script(url, onload, onerror)
 	
 	document.getElementsByTagName('head')[0].appendChild(script);	
 }
+
+exports.load_location_hash = function load_location_hash(graphsPath) {
+	var graphName = decodeURIComponent(window.location.hash).replace('#'+graphsPath,'');
+	
+	if(graphName.length < 1)
+		return;
+	
+	E2.app.onStopClicked();
+	E2.app.player.on_update();
+	console.log('loading graph from location hash:', graphName);
+	E2.dom.filename_input.val(graphName);
+	E2.app.player.load_from_url(graphsPath+graphName);
+}

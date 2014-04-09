@@ -83,3 +83,5 @@ CollapsibleSelectControl.prototype.render = function(el) {
 
 	return this;
 }
+
+exports.CollapsibleSelectControl = CollapsibleSelectControl;

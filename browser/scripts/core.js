@@ -19,10 +19,19 @@ WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN 
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
+var Application = require('./application').Application;
+var TreeView = require('./treeview').TreeView;
+var Graph = require('./graph').Graph;
+var Renderer = require('./renderer').Renderer;
+var PluginManager = require('./plugin-manager').PluginManager;
+
+var engiUtil = require('./util')
+var msg = engiUtil.msg;
+var load_location_hash = engiUtil.load_location_hash;
+
 var URL_GRAPHS = '/data/graphs/'
 
-var E2 = {};
-window.E2 = E2; // global scope so plugins can access it
+window.E2 = E2 = {};
 
 E2.app = null;
 E2.dom = {};
@@ -30,60 +39,24 @@ E2.plugins = {};
 E2.slot_type = { input: 0, output: 1 };
 E2.erase_color = '#ff3b3b';
 
+// XXX set up window globals to be removed
+console.warn('setting up Renderer globals');
+window.Material = require('./material').Material;
+window.Renderer = Renderer;
+window.Connection = require('./connection').Connection;
+window.Color = require('./color').Color;
+window.Camera = require('./camera').Camera;
+window.Mesh = require('./mesh').Mesh;
+window.VertexBuffer = require('./vertex-buffer').VertexBuffer;
+window.IndexBuffer = require('./index-buffer').IndexBuffer;
+window.ShaderProgram = require('./shader-program').ShaderProgram;
+window.Texture = require('./texture').Texture;
+
 function Delegate(delegate, dt, count)
 {
 	this.delegate = delegate;
 	this.dt = dt;
 	this.count = count;
-}
-
-function PresetManager(base_url)
-{
-	$.ajax({
-		url: base_url + '/presets.json',
-		cache: true
-	}).done(function(data)
-	{
-		var presets = Object.keys(data).map(function(cat)
-		{
-			return {
-				title: cat,
-				items: Object.keys(data[cat]).map(function(preset)
-				{
-					return {
-						title: preset,
-						path: data[cat][preset]
-					}
-				})
-			}
-		});
-
-		var presets_list = new CollapsibleSelectControl()
-			.data(presets)
-			.render(E2.dom.presets_list)
-			.onOpen(function(path) {
-				var url = base_url + '/' + path + '.json';
-
-				msg('Loading snippet from: ' + url);
-
-				$.get(url)
-				.done(function(data)
-				{
-					E2.app.fillCopyBuffer(data.root.nodes, data.root.conns, 0, 0);
-					E2.app.onPaste({ target: { id: 'notpersist' }});
-				})
-				.fail(function(_j, _textStatus, _errorThrown)
-				{
-		  			msg('ERROR: Failed to load the selected preset.');
-				})
-			})
-
-		if(!window.location.hash)
-			presets_list.focus()
-	})
-	.fail(function() {
-		msg('PresetsMgr: No presets found.');
-	})
 }
 
 function AssetTracker(core)
@@ -168,7 +141,11 @@ function Core(app) {
 	this.delta_t = 0.0;
 	this.graph_uid = 0;
 	this.app = app;
-	this.plugin_mgr = new PluginManager(this, 'plugins', E2.app ? E2.app.onPluginInstantiated : null, load_location_hash);
+	this.plugin_mgr = new PluginManager(this, 'plugins', E2.app ? E2.app.onPluginInstantiated : null,
+		function()
+		{
+			load_location_hash(URL_GRAPHS);
+		});
 	this.aux_scripts = {};
 	this.aux_styles = {};
 	
@@ -342,7 +319,7 @@ function Core(app) {
 		self.root_graph.patch_up(self.graphs);
 		self.root_graph.initialise(self.graphs);
 			
-		self.active_graph = resolve_graph(self.graphs, d.active_graph); 
+		self.active_graph = Graph.resolve_graph(self.graphs, d.active_graph); 
 		
 		if(E2.dom.structure)
 		{
@@ -399,6 +376,8 @@ function Core(app) {
 		self.aux_styles[style_url] = true;
 	};
 }
+
+exports.Core = Core;
 
 E2.InitialiseEngi = function()
 {
@@ -470,6 +449,7 @@ E2.InitialiseEngi = function()
 		graph.reorder_children(original, sibling, insert_after);
 	});
 
+	var Player = require('./player').Player;
 	E2.app.player = new Player(E2.dom.webgl_canvas, E2.app, E2.dom.structure.tree.root);
 	
 	E2.dom.save.click(E2.app.onSaveClicked);
@@ -490,15 +470,3 @@ E2.InitialiseEngi = function()
 	}
 }
 
-function load_location_hash() {
-	var graphName = decodeURIComponent(window.location.hash).replace('#'+URL_GRAPHS,'');
-	
-	if(graphName.length < 1)
-		return;
-	
-	E2.app.onStopClicked();
-	E2.app.player.on_update();
-	console.log('loading graph from location hash:', graphName);
-	E2.dom.filename_input.val(graphName);
-	E2.app.player.load_from_url(URL_GRAPHS+graphName);
-}

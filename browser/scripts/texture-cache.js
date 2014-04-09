@@ -1,4 +1,5 @@
 var Texture = require('./texture').Texture;
+var msg = require('./util').msg;
 
 function TextureCache(gl, core)
 {

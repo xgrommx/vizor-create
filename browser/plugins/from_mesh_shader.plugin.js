@@ -1,3 +1,6 @@
+var msg = require('../scripts/util').msg;
+var ComposeShader = require('../scripts/compose-shader').ComposeShader;
+
 E2.p = E2.plugins["from_mesh_shader"] = function(core, node)
 {
 	this.desc = 'Auto-generate a shader tailored to correctly and optimally render the supplied mesh.';

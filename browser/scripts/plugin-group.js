@@ -1,3 +1,5 @@
+var sort_dict = require('./util').sort_dict;
+
 function PluginGroup(id)
 {
 	var self = this;

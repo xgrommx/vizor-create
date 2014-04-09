@@ -1,4 +1,3 @@
-var Core = require('./core').Core;
 var Graph = require('./graph').Graph;
 
 function Player(canvas, app, root_node)
@@ -12,7 +11,10 @@ function Player(canvas, app, root_node)
 	};
 
 	this.app = app;
+
+	var Core = require('./core').Core;
 	this.core = new Core(app);
+
 	this.interval = null;
 	this.abs_time = 0.0;
 	this.last_time = (new Date()).getTime();

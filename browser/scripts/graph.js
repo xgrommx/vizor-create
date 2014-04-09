@@ -1,3 +1,6 @@
+var Node = require('./node').Node;
+var Registers = require('./registers').Registers;
+
 function Graph(core, parent_graph, tree_node) 
 {
 	this.tree_node = tree_node;
@@ -378,3 +381,5 @@ Graph.resolve_graph = function(graphs, guid)
 	
 	return null;
 };
+
+exports.Graph = Graph;

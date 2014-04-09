@@ -1,3 +1,4 @@
+var Color = require('./color').Color;
 
 function Light()
 {

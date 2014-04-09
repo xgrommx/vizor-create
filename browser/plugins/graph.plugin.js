@@ -1,3 +1,6 @@
+var make = require('../scripts/util').make;
+var makeButton = require('../scripts/util').makeButton;
+
 E2.p = E2.plugins["graph"] = function(core, node)
 {
 	this.desc = 'Encapsulate a nested graph into- and out of which arbitrary data can be routed and the encapsulated logic of which can be optinally rendered to a <b>texture</b> instead of the framebuffer.';

@@ -88,3 +88,4 @@ function make_draggable(ui, drag, stop)
 	ui[0].addEventListener('mousedown', draggable_mousedown(ui, drag, stop));
 }
 
+exports.make_draggable = make_draggable;

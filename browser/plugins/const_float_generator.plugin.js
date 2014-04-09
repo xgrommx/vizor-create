@@ -1,3 +1,5 @@
+var ExpandableTextfield = require('../scripts/expandable-text-field').ExpandableTextfield;
+
 E2.p = E2.plugins["const_float_generator"] = function(core, node)
 {
 	this.desc = 'Emits a float constant specified in an input field. If an invalid string in entered, the field is reset to the previous value.';

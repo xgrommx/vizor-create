@@ -1,3 +1,5 @@
+var make = require('./util').make;
+
 function TreeNode(tree, parent_node, title, graph_node)
 {
 	this.tree = tree;
