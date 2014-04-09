@@ -10,7 +10,10 @@
     "jquery": "2.1.0",
     "node-png": "^0.4.2",
     "osc-min": "^0.1.0",
-    "ws": "^0.4.31"
+    "ws": "^0.4.31",
+    "browserify": "^3.39.0",
+    "when": "^3.1.0",
+    "through": "^2.3.4",
   },
   "devDependencies": {
     "uglify-js2": "^2.1.11",

@@ -4,8 +4,10 @@ var http = require('http')
 var express = require('express')
 var argv = require('minimist')(process.argv.slice(2));
 var fs = require('fs')
+
 var FrameDumpServer = require('./lib/framedump-server').FrameDumpServer;
 var OscServer = require('./lib/osc-server').OscServer;
+var BundleServer = require('./lib/bundle-server').BundleServer;
 
 var config = require('./config.json')
 
@@ -82,6 +84,8 @@ var app = express()
 		});
 		req.pipe(stream);
 	});
+
+new BundleServer(ENGI + 'plugins/').listen(app);
 
 if (config.server.enableFrameDumping)
 	new FrameDumpServer().listen(app);
