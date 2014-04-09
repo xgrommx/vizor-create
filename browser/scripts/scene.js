@@ -1,5 +1,7 @@
 var Material = require('./material').Material;
 var Mesh = require('./mesh').Mesh;
+var ComposeShader = require('./compose-shader').ComposeShader;
+var Camera = require('./camera').Camera;
 
 function Scene(gl, core, data, base_path)
 {

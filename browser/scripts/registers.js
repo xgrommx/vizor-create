@@ -128,3 +128,4 @@ Registers.prototype.deserialise = function(regs)
 	}
 };
 
+exports.Registers = Registers;

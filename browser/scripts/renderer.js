@@ -1,5 +1,7 @@
 
 var Color = require('./color').Color;
+var Light = require('./light').Light;
+var Material = require('./material').Material;
 var TextureSampler = require('./texture-sampler').TextureSampler;
 var Texture = require('./texture').Texture;
 var TextureCache = require('./texture-cache').TextureCache;

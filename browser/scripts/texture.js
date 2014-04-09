@@ -1,3 +1,5 @@
+var TextureSampler = require('./texture-sampler').TextureSampler;
+
 function Texture(gl, handle)
 {
 	this.gl = gl;
