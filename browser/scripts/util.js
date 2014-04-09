@@ -21,7 +21,7 @@ Array.prototype.remove = function(obj)
 		this.splice(i, 1);
 };
 
-function clone_recursive(from, to)
+exports.clone_recursive = function clone_recursive(from, to)
 {
     if (from == null || typeof from != "object") return from;
     if (from.constructor != Object && from.constructor != Array) return from;
@@ -39,17 +39,17 @@ function clone_recursive(from, to)
     return to;
 }
 
-function clone(o)
+exports.clone = function clone(o)
 {
 	return clone_recursive(o, null);
 };
 
-function make(tag)
+exports.make = function make(tag)
 {
 	return $(document.createElement(tag));
 }
 
-function makeButton(text, alt, className)
+exports.makeButton = function makeButton(text, alt, className)
 {
 	text = text || '';
 	alt = alt || '';
@@ -57,7 +57,7 @@ function makeButton(text, alt, className)
 	return $('<button class="btn btn-xs ' + className + '" title="' + alt + '">' + text + '</button>');
 }
 
-function resolve_graph(graphs, guid)
+exports.resolve_graph = function resolve_graph(graphs, guid)
 {
 	for(var i = 0, len = graphs.length; i < len; i++)
 	{
@@ -71,7 +71,7 @@ function resolve_graph(graphs, guid)
 	return null;
 };
 
-function load_style(url)
+exports.load_style = function load_style(url)
 {
 	var link = document.createElement('link');
 	var rel = document.createAttribute('rel');
@@ -82,7 +82,7 @@ function load_style(url)
 	document.getElementById('head').appendChild(link);
 }
 
-function sort_dict(dict)
+exports.sort_dict = function sort_dict(dict)
 {
 	var s = [], key;
 	
@@ -94,7 +94,7 @@ function sort_dict(dict)
 	return s;
 }
 
-function msg(txt)
+exports.msg = function msg(txt)
 {
 	var d = E2.dom.dbg;
 
@@ -112,7 +112,7 @@ function msg(txt)
 	d.scrollTop(d[0].scrollHeight);
 }
 
-function load_script(url, onload, onerror)
+exports.load_script = function load_script(url, onload, onerror)
 {
 	var script = document.createElement('script');
 

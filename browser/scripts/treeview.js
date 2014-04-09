@@ -273,3 +273,5 @@ TreeView.prototype.on_mouse_over = function(t_node)
 	this.drag_tgt = t_node.dom;
 	this.drag_tgt_node = t_node;
 };
+
+exports.TreeView = TreeView;

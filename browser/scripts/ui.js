@@ -1,4 +1,4 @@
-function ExpandableTextfield(node, tf, def_width)
+exports.ExpandableTextfield = function ExpandableTextfield(node, tf, def_width)
 {
 	var self = this;
 	
