@@ -73,3 +73,4 @@ PluginGroup.prototype.create_items = function()
 	return items;
 };
 
+exports.PluginGroup = PluginGroup;

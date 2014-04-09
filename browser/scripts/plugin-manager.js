@@ -1,3 +1,5 @@
+var PluginGroup = require('./plugin-group').PluginGroup;
+var ContextMenu = require('./context-menu').ContextMenu;
 
 function PluginManager(core, base_url, creation_listener, ready_listener) 
 {
@@ -111,3 +113,4 @@ PluginManager.prototype.create = function(id, node)
 	return null;
 };
 
+exports.PluginManager = PluginManager;

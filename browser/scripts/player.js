@@ -1,3 +1,6 @@
+var Core = require('./core').Core;
+var Graph = require('./graph').Graph;
+
 function Player(canvas, app, root_node)
 {
 	var self = this;
@@ -195,3 +198,5 @@ function CreatePlayer(init_callback)
 	
 	wait_for_plugins();	
 }
+
+exports.Player = Player;
