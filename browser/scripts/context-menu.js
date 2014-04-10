@@ -1,3 +1,5 @@
+var make = require('./util').make;
+
 var Menu = function(cm, items, callback)
 {
 	this.cm = cm;
