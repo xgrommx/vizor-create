@@ -44,11 +44,11 @@ E2.p.prototype.open_editor = function(self) { return function(e)
 	
 	var editor = ace.edit(src[0]);
 	
-	editor.setTheme('ace/theme/chrome');
+	editor.setTheme('external/ace/theme/chrome');
 	editor.getSession().setUseWrapMode(false);
 	editor.setBehavioursEnabled(false);
 	editor.setShowPrintMargin(false);
-	editor.getSession().setMode('ace/mode/json');
+	editor.getSession().setMode('external/ace/mode/json');
 	editor.setValue(self.state.text);
 	editor.gotoLine(2);
 	editor.session.selection.clearSelection();
@@ -83,5 +83,5 @@ E2.p.prototype.update_output = function(slot)
 E2.p.prototype.state_changed = function(ui)
 {
 	if(!ui)
-		this.core.add_aux_script('ace/ace.js');
+		this.core.add_aux_script('external/ace/ace.js');
 };
