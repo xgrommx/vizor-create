@@ -39,5 +39,5 @@ E2.p.prototype.update_output = function(slot)
 E2.p.prototype.state_changed = function(ui)
 {
 	if(!ui)
-		this.core.add_aux_script('external/osc/osc-proxy.js');
+		this.core.add_aux_script('osc/osc-proxy.js');
 };

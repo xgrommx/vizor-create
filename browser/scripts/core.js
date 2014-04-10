@@ -363,7 +363,7 @@ function Core(app) {
 		if(self.aux_scripts.hasOwnProperty(script_url))
 			return;
 		
-		load_script('plugins/' + script_url);
+		load_script('plugins/external/' + script_url);
 		self.aux_scripts[script_url] = true;
 	};
 
@@ -372,7 +372,7 @@ function Core(app) {
 		if(self.aux_styles.hasOwnProperty(style_url))
 			return;
 		
-		load_style('plugins/' + style_url);
+		load_style('plugins/external/' + style_url);
 		self.aux_styles[style_url] = true;
 	};
 }

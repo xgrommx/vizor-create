@@ -107,11 +107,11 @@ E2.p.prototype.open_editor = function(self, src_id, title, done_func, dest) { re
 
 	var editor = ace.edit(src[0]);
 	
-	editor.setTheme('external/ace/theme/chrome');
+	editor.setTheme('ace/theme/chrome');
 	editor.getSession().setUseWrapMode(false);
 	editor.setBehavioursEnabled(false);
 	editor.setShowPrintMargin(false);
-	editor.getSession().setMode('external/ace/mode/glsl');
+	editor.getSession().setMode('ace/mode/glsl');
 	editor.setValue(self.state[src_id]);
 	editor.gotoLine(0);
 	editor.session.selection.clearSelection();
@@ -418,6 +418,6 @@ E2.p.prototype.state_changed = function(ui)
 	}
 	else
 	{
-		this.core.add_aux_script('external/ace/ace.js');
+		this.core.add_aux_script('ace/ace.js');
 	}
 };
