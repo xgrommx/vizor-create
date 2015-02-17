@@ -161,10 +161,10 @@ FileSelectControl.prototype._render = function()
 
 	$('.file-selector', this._frame).html(this._renderFiles());
 
-	var el = bootbox.dialog(
-	{
-		message: this._frame
-	});
+	var tab = E2.app.midPane.newTab('Select', function() {})
+
+	var el = tab.body
+	el.append(this._frame)
 
 	this._el = el;
 	this._inputEl = $('#file-url', this._el);
@@ -220,7 +220,7 @@ FileSelectControl.prototype._render = function()
 	this._bindUploadForm();
 
 	// show
-	el.appendTo('body');
+	// el.appendTo('body');
 
 	return this;
 };
